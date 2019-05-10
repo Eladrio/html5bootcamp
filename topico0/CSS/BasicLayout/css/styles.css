@@ -1,0 +1,31 @@
+html {
+  font-size: 14px;
+  font-family: sans-serif;
+}
+
+header {
+  width: 100vw;
+  height: 15vh;
+  background: #008066;
+}
+
+header, footer {
+  text-align: center;
+}
+
+nav, aside {
+  width: 15vw;
+  height: 75vh;
+  background: #00cca3;
+}
+
+section {
+  width: 40vw;
+  height: 75vh;
+}
+
+footer {
+  width: 100vw;
+  height: 10vh;
+  background: #008066;
+}Add a global font definition (at html element) with a value of 14px, using a font-family you like
