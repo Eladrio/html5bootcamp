@@ -9,8 +9,20 @@ header {
   background: #008066;
 }
 
+.header {
+  font-size: 46px;
+}
+
 header, footer {
   text-align: center;
+}
+
+.nav {
+  font-size: 12px;
+}
+
+.sidebar {
+  font-size: 10px;
 }
 
 nav, aside {
@@ -19,13 +31,21 @@ nav, aside {
   background: #00cca3;
 }
 
+.content {
+  font-size: 14px;
+}
+
 section {
   width: 40vw;
   height: 75vh;
+}
+
+.footer {
+  font-size: 10px;
 }
 
 footer {
   width: 100vw;
   height: 10vh;
   background: #008066;
-}Add a global font definition (at html element) with a value of 14px, using a font-family you like
+}
