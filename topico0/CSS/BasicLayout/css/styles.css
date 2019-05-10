@@ -3,6 +3,16 @@ html {
   font-family: sans-serif;
 }
 
+/* Selects all class attributes that finish with an r */
+[class$="r"] {
+  background: magenta;
+}
+
+/*Selects all class atributes that have an a but dont finish with r */
+:not([class$="r"])[class*="a"] {
+  background: blue;
+}
+
 header {
   width: 100vw;
   height: 15vh;
