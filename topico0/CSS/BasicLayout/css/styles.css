@@ -3,7 +3,7 @@ html {
   widows: 100%;
 }
 
-#global {
+#global * {
   font-size: 50px;
   font-family: sans-serif;
 }
