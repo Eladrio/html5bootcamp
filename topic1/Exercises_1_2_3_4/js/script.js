@@ -1,6 +1,6 @@
-/** Event listener for the "load" Event. This event occurs when the whole page, dependencies included, finishes loading.
- * For better efficiency in larger webpages or web applicactions we could use the async attribute in the script tag in html.
-*/
+/** Event listener for the "load" Event.
+ * This event occurs when the whole page, dependencies included, finishes loading.
+ */
 window.addEventListener("load", initPage);
 
 /**
@@ -12,6 +12,13 @@ window.addEventListener("load", initPage);
  */
 function initPage(event) {
   let hiddenSection = document.querySelector(".hidden");
+
+  let btnShowAlert = document.querySelector(".btn-show-alert");
+  btnShowAlert.addEventListener('click', showAlert);
+
+  function showAlert() {
+    window.alert("This is an alert message!")
+  }
 
   function fadeIn() {
     hiddenSection.className = "visible";
