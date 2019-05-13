@@ -1,3 +1,6 @@
+/** Event listener for the "load" Event. This event occurs when the whole page, dependencies included, finishes loading.
+ * For better efficiency in larger webpages or web applicactions we could use the async attribute in the script tag in html.
+*/
 window.addEventListener("load", initPage);
 
 /**
