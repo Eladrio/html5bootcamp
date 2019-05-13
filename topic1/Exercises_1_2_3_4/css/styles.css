@@ -22,6 +22,10 @@ section {
   visibility: visible;
   opacity: 1;
   transition: opacity 3s linear;
-  background-color: red;
+  background-color: white;
+}
+
+.error {
+  background: red;
 }
 
