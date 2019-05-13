@@ -6,7 +6,7 @@ window.addEventListener("load", initPage);
 /**
  * initPage() configures all the events once the whole page has loaded,incluing
  * all dependant resources.
- * This way we make sure that all DOM's elements are loaded before beginning manipulate them
+ * This way we make sure that all DOM's elements are loaded before beginning to manipulate them
  *
  * @param {Event} event
  */
@@ -57,8 +57,8 @@ function initPage(event) {
     http.send();
 
     // readyState == 4 => request succesful, status == 200 => request completed
-    http.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200){
+    http.onload = function() {
+      if (this.status == 200){
         let responseObject = http.response;
         hiddenSection.firstElementChild.innerHTML = responseObject.value.joke;
       }
@@ -92,7 +92,7 @@ function initPage(event) {
   };
 
   /**
-   * If there was an error with the request an error
+   * If there was an error with the request then an error
    * message is displayed and the background color of the section turns red.
    * Else displays the response.
    *
