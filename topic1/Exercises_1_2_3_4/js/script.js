@@ -24,6 +24,28 @@ function initPage(event) {
     doSearch(searchInput.value);
   })
 
+/**
+ * createTable() receives a bidimensional array and creates a table object in the DOM
+ * using the array data as input.
+ *
+ * @param {Array} matrix
+ */
+  function createTable(matrix) {
+    let tableSection = document.querySelector(".table-section");
+    let table = document.createElement("table");
+    tableSection.appendChild(table);
+    matrix.forEach((item) => {
+      let tr = document.createElement("tr");
+      table.appendChild(tr);
+      item.forEach(element => {
+        let td = document.createElement("td");
+        let tdText = document.createTextNode(element);
+        td.appendChild(tdText);
+        tr.appendChild(td);
+      });
+    });
+  }
+
   /**
    * doSearch() makes the search for the query received as parameter
    * @param {String} query
@@ -167,5 +189,13 @@ function initPage(event) {
   })
 
   getResponseFromApiWithParameters('JavaScript');
+
+  let matrix = [
+    ["Electricity", "$1100", "14/05/2019"],
+    ["Internet", "$500", "27/05/2019"],
+    ["CellPhone", "$1000", "3/06/2019"]
+  ];
+
+  createTable(matrix);
 
 }
