@@ -13,31 +13,87 @@ window.addEventListener("load", initPage);
 function initPage(event) {
   let hiddenSection = document.querySelector(".hidden");
 
-  let btnShowAlert = document.querySelector(".btn-show-alert");
-  btnShowAlert.addEventListener('click', getResponseFromApi);
+  let btnAction = document.querySelector("#btn-action");
+  btnAction.addEventListener('click', getResponseFromApi);
+
+  let searchUl = document.querySelector(".search-result-list");
+  let pErrorParameters = document.querySelector("#p-error-search");
+
+  let searchInput = document.getElementById("search-query");
+  searchInput.addEventListener('change',() => {
+    doSearch(searchInput.value);
+  })
 
   /**
-   * ajaxCall() returns a new Promise based on the AJAX call
+   * doSearch() makes the search for the query received as parameter
+   * @param {String} query
+   */
+  function doSearch(query) {
+    //clears the ul from the previous results.
+    while(searchUl.firstChild) searchUl.removeChild(searchUl.firstChild);
+    getResponseFromApiWithParameters(query);
+  }
+
+  /**
+   * showRepositoriesList() displays a list of repositories in the webpage
+   * @param {Array} items
+   */
+  function showRespositoriesList(items) {
+    items.forEach((item) => {
+      let liItem = document.createElement("li");
+      let pLi = document.createElement("p");
+      pLi.innerHTML = item.url;
+      liItem.appendChild(pLi);
+      searchUl.appendChild(liItem);
+    })
+  }
+
+
+  /**
+   * getResponseFromApiWithParameters()
+   *
+   * @param {String} query
+   */
+  function getResponseFromApiWithParameters(query) {
+    let baseUrl = 'https://api.github.com/search/repositories';
+    let queryParameter = 'q=' + encodeURIComponent(query);
+    let completeUrl = baseUrl + '?' + queryParameter;
+
+    let config = {
+      url: completeUrl,
+      method: 'GET',
+      responseType: 'json'
+    }
+
+    reusableAjaxCall(config).then(function (response) {
+      showRespositoriesList(response.items);
+    }, function (error) {
+      pErrorParameters.innerHTML = error;
+    })
+
+  }
+
+  /**
+   * reusableAjaxCall() returns a new Promise based on the AJAX call
    * configured by the passed config Object.
    *
    * @param {Object} config
-   * @return {Promise} promise
+   * @return {Promise} new Promise
    */
-  function ajaxCall(config) {
-    return new Promise(function(resolve, reject) {
+  function reusableAjaxCall(config) {
+    return new Promise(function (resolve, reject) {
       const http = new XMLHttpRequest();
-      http.open(config.method,config.url);
+      http.open(config.method, config.url);
       http.responseType = config.responseType;
 
-      http.onload = function() {
+      http.onload = function () {
         if (http.status == 200) {
           resolve(http.response);
-        }
-        else {
+        } else {
           reject(Error(http.statusText));
         }
       };
-      http.onerror = function() {
+      http.onerror = function () {
         reject(Error("Network Error"));
       };
       http.send();
@@ -50,20 +106,26 @@ function initPage(event) {
    */
   function getResponseFromApi() {
     const http = new XMLHttpRequest();
-    const url = 'http://api.iccndb.com/joke/random';
+    const url = 'http://api.icndb.com/jokes/random';
 
     http.open("GET", url);
     http.responseType = "json";
     http.send();
 
-    // readyState == 4 => request succesful, status == 200 => request completed
-    http.onload = function() {
-      if (this.status == 200){
+    //status == 200 => request completed
+    http.onload = function () {
+      if (this.status == 200) {
         let responseObject = http.response;
         hiddenSection.firstElementChild.innerHTML = responseObject.value.joke;
       }
+      else {
+          hiddenSection.classList.add("error");
+      }
     }
-
+    http.onerror = function() {
+      hiddenSection.innerHTML = "Error";
+      hiddenSection.classList.add("error");
+    }
   }
 
   /**
@@ -97,11 +159,13 @@ function initPage(event) {
    * Else displays the response.
    *
    */
-  ajaxCall(config).then(function(response) {
+  reusableAjaxCall(config).then(function (response) {
     hiddenSection.firstElementChild.innerHTML = response.value.joke;
-  }, function(error) {
+  }, function (error) {
     hiddenSection.firstElementChild.innerHTML = "There was an Error with the request to server";
     hiddenSection.classList.add("error");
   })
+
+  getResponseFromApiWithParameters('JavaScript');
 
 }

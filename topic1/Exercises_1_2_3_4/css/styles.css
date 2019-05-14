@@ -1,11 +1,27 @@
 body {
   background-color: lightgrey;
   margin: 0;
+}
+
+.content-container {
+  display: inline-flex;
+}
+
+main {
   padding: 0;
+}
+
+h1 {
+  margin-top: 0;
 }
 
 section {
   text-align: center;
+}
+
+aside {
+  border-left: 1px solid black;
+  margin-left: 1%;
 }
 
 .title {
@@ -27,5 +43,14 @@ section {
 
 .error {
   background: red;
+}
+
+.search-result-list p {
+  margin: 0.5em;
+  text-align: start;
+}
+
+input {
+  margin: 5px;
 }
 
