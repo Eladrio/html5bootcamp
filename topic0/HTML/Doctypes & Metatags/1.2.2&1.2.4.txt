@@ -1,0 +1,12 @@
+Add doctype to the previously created HTML documents. See what happens if you remove it.
+
+	If you remove the doctype from an HTML doc it will enter in "quirks" modes, in this
+	mode it will try to emulate a lot of the bugs present in a 90's webpages. It is not
+	consistent in doing this so you will get different results in different web browsers.
+
+
+Add the meta viewport tag. Check what happens in a mobile browser with or without it.
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	Sets the browser window to the size of the device screen.
+	Without it in mobile the page will "go out of the screen".
