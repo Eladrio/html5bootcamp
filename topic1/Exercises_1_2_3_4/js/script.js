@@ -1,5 +1,7 @@
 /** Event listener for the "load" Event.
  * This event occurs when the whole page, dependencies included, finishes loading.
+ * Doing it this way with all the functionality inside a function scope I make sure
+ * that the user can't access the variables from the console just by writing their names
  */
 window.addEventListener("load", initPage);
 
@@ -167,7 +169,6 @@ function initPage(event) {
 
   fadeIn();
 
-
   // config Object to test the ajaxCall function
   let config = {
     url: 'http://api.icndb.com/jokes/random',
@@ -195,7 +196,5 @@ function initPage(event) {
     ["Internet", "$500", "27/05/2019"],
     ["CellPhone", "$1000", "3/06/2019"]
   ];
-
   createTable(matrix);
-
 }
