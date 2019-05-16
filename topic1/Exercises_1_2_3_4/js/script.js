@@ -22,16 +22,16 @@ function initPage(event) {
   let pErrorParameters = document.querySelector("#p-error-search");
 
   let searchInput = document.getElementById("search-query");
-  searchInput.addEventListener('change',() => {
-    doSearch(searchInput.value);
+  searchInput.addEventListener('change', () => {
+    search(searchInput.value);
   })
 
-/**
- * createTable() receives a bidimensional array and creates a table object in the DOM
- * using the array data as input.
- *
- * @param {Array} matrix
- */
+  /**
+   * createTable() receives a bidimensional array and creates a table object in the DOM
+   * using the array data as input.
+   *
+   * @param {Array} matrix
+   */
   function createTable(matrix) {
     let tableSection = document.querySelector(".table-section");
     let table = document.createElement("table");
@@ -46,16 +46,22 @@ function initPage(event) {
         tr.appendChild(td);
       });
     });
+    table.classList.add("table");
   }
 
   /**
-   * doSearch() makes the search for the query received as parameter
+   * search() makes the search for the query received as parameter.
    * @param {String} query
    */
-  function doSearch(query) {
+  function search(query) {
     //clears the ul from the previous results.
-    while(searchUl.firstChild) searchUl.removeChild(searchUl.firstChild);
-    getResponseFromApiWithParameters(query);
+    while (searchUl.firstChild) {
+      searchUl.removeChild(searchUl.firstChild);
+    }
+    // If query is "" only clears the previous reuslts but doesnt try to search.
+    if (query) {
+      getResponseFromApiWithParameters(query);
+    }
   }
 
   /**
@@ -91,10 +97,9 @@ function initPage(event) {
 
     reusableAjaxCall(config).then(function (response) {
       showRespositoriesList(response.items);
-    }, function (error) {
+    }).catch(() => {
       pErrorParameters.innerHTML = error;
     })
-
   }
 
   /**
@@ -141,12 +146,11 @@ function initPage(event) {
       if (this.status == 200) {
         let responseObject = http.response;
         hiddenSection.firstElementChild.innerHTML = responseObject.value.joke;
-      }
-      else {
-          hiddenSection.classList.add("error");
+      } else {
+        hiddenSection.classList.add("error");
       }
     }
-    http.onerror = function() {
+    http.onerror = function () {
       hiddenSection.innerHTML = "Error";
       hiddenSection.classList.add("error");
     }
@@ -184,12 +188,15 @@ function initPage(event) {
    */
   reusableAjaxCall(config).then(function (response) {
     hiddenSection.firstElementChild.innerHTML = response.value.joke;
-  }, function (error) {
-    hiddenSection.firstElementChild.innerHTML = "There was an Error with the request to server";
+  }).catch(() => {
+    hiddenSection.firstElementChild.innerHTML = "There was an Error with the request to the server";
     hiddenSection.classList.add("error");
   })
 
   getResponseFromApiWithParameters('JavaScript');
+
+  /** matrix is the bidimensional array that gets passed to createTable to create the table
+  element in the DOM.*/
 
   let matrix = [
     ["Electricity", "$1100", "14/05/2019"],
