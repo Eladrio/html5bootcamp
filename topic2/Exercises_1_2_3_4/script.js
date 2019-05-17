@@ -1,33 +1,6 @@
 document.addEventListener("DOMContentLoaded", initPage);
 
 function initPage() {
-  class Movie {
-    constructor(name, year, duration) {
-      this.title = name;
-      this.year = year;
-      this.duration = duration;
-    }
-
-    play() {
-      console.log("Playing " + this.title + " Movie...");
-    }
-
-    pause() {
-      console.log(this.title + " Movie is paused");
-    }
-
-    resume() {
-      console.log("Resumed " + this.title + " Movie playing");
-    }
-
-  }
-
-  class Actor {
-    constructor(name, age) {
-      this.name = name;
-      this.age = age;
-    }
-  }
 
   class EventEmitter {
     constructor() {
@@ -59,9 +32,58 @@ function initPage() {
     }
   }
 
+  class Movie extends EventEmitter {
+    constructor(name, year, duration) {
+      super();
+      this.title = name;
+      this.year = year;
+      this.duration = duration;
+    }
+
+
+
+    play() {
+      console.log("Playing " + this.title + " movie");
+      this.emit("play");
+    }
+
+    pause() {
+      console.log(this.title + " Movie is paused");
+      this.emit("pause");
+    }
+
+    resume() {
+      console.log("Resumed " + this.title + " Movie playing");
+      this.emit("resumed");
+    }
+  }
+
+  class Actor {
+    constructor(name, age) {
+      this.name = name;
+      this.age = age;
+    }
+  }
+
   let movBatman = new Movie("Batman 2", 1992, 93);
   let movStar = new Movie("Star Wars I", 1994, 103);
   let movGod = new Movie("Godfather 1", 1979, 120);
+
+  function playListener() {
+    console.log("The playListener listened that Batman's movie is playing");
+  }
+
+  function pauseListener() {
+    console.log("The pauseListener listened that Batman's movie is paused");
+  }
+
+  function resumedListener() {
+    console.log("The resumedListener listened that Batman's movie is resumed");
+  }
+
+  let listenerBatPlay = movBatman.on("play", playListener);
+  let listenerBatPause = movBatman.on("pause", pauseListener);
+  let listenerBatResume = movBatman.on("resumed", resumedListener);
 
   movBatman.play();
   movBatman.pause();
@@ -74,6 +96,4 @@ function initPage() {
   movGod.play();
   movGod.pause();
   movGod.resume();
-
-
 }
