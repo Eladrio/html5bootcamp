@@ -77,6 +77,15 @@ function initPage() {
     }
   }
 
+  class Logger {
+    constructor() {
+    }
+
+    log(info) {
+      console.log("The event " + info + " has been emitted");
+    }
+  }
+
   let movBatman = new Movie("Batman 2", 1992, 93);
   let movStar = new Movie("Star Wars I", 1994, 103);
   let movGod = new Movie("Godfather 1", 1979, 120);
@@ -105,15 +114,15 @@ function initPage() {
 
   movBatman.on("play", playListener);
 
-  let batPlayListener =  new Listener();
+  let batPlayListener =  new Logger();
 
   movBatman.on("play",batPlayListener);
 
-  let batPauseListener =  new Listener();
+  let batPauseListener =  new Logger();
 
   movBatman.on("pause",batPauseListener);
 
-  let batResumedListener =  new Listener();
+  let batResumedListener =  new Logger();
 
   movBatman.on("resumed",batResumedListener);
 
