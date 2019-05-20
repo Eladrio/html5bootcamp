@@ -18,7 +18,12 @@ function initPage() {
       const eventArr = this.events[eventName];
       if (eventArr) {
         eventArr.forEach((callback) => {
-          callback.call(null, eventName);
+          if (typeof callback === 'function') {
+            callback();
+          }
+          else if (typeof callback === 'object') {
+            callback.log(eventName);
+          }
         })
       }
     }
@@ -38,9 +43,8 @@ function initPage() {
       this.title = name;
       this.year = year;
       this.duration = duration;
+      this.cast = [];
     }
-
-
 
     play() {
       console.log("Playing " + this.title + " movie");
@@ -56,6 +60,14 @@ function initPage() {
       console.log("Resumed " + this.title + " Movie playing");
       this.emit("resumed");
     }
+
+    addCast(cast) {
+      this.cast = this.cast.concat(cast);
+    }
+
+    showCast() {
+      this.cast.forEach((item) => console.log(item));
+    }
   }
 
   class Actor {
@@ -69,6 +81,16 @@ function initPage() {
   let movStar = new Movie("Star Wars I", 1994, 103);
   let movGod = new Movie("Godfather 1", 1979, 120);
 
+  const terminator = new Movie('Terminator I', 1985, 60);
+  const arnold = new Actor('Arnold Schwarzenegger', 50);
+  const actors = [
+    new Actor('Paul Winfield', 50),
+    new Actor('Michael Biehn', 50),
+    new Actor('Linda Hamilton', 50)
+  ];
+  terminator.addCast(arnold);
+  terminator.addCast(actors);
+
   function playListener() {
     console.log("The playListener listened that Batman's movie is playing");
   }
@@ -81,9 +103,20 @@ function initPage() {
     console.log("The resumedListener listened that Batman's movie is resumed");
   }
 
-  let listenerBatPlay = movBatman.on("play", playListener);
-  let listenerBatPause = movBatman.on("pause", pauseListener);
-  let listenerBatResume = movBatman.on("resumed", resumedListener);
+  movBatman.on("play", playListener);
+
+  let batPlayListener =  new Listener();
+
+  movBatman.on("play",batPlayListener);
+
+  let batPauseListener =  new Listener();
+
+  movBatman.on("pause",batPauseListener);
+
+  let batResumedListener =  new Listener();
+
+  movBatman.on("resumed",batResumedListener);
+
 
   movBatman.play();
   movBatman.pause();
@@ -96,4 +129,6 @@ function initPage() {
   movGod.play();
   movGod.pause();
   movGod.resume();
+
+  terminator.showCast();
 }
