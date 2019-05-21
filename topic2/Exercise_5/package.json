@@ -1,0 +1,15 @@
+{
+  "name": "Exercise_5",
+  "version": "1.0.0",
+  "description": "Create a bundle using Babel",
+  "main": "/src/Movie.js /src/Actor.js /src/EventEmitter.js /src/Logger.js",
+  "scripts": {
+	"build": "babel src --out-file dist", "compact": "false"
+  },
+  "author": "Adrian Gavazzi",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3"
+  }
+}

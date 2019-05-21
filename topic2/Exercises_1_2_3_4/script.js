@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", initPage);
 
 function initPage() {
-
   class EventEmitter {
     constructor() {
       this.events = {};
@@ -86,7 +85,20 @@ function initPage() {
     }
   }
 
+  const social = {
+    share : function(friendName) {
+      console.log(`${friendName} shares ${this.title}`);
+    },
+    like : function(friendName) {
+      console.log(`${friendName} likes ${this.title}`);
+    }
+  }
+
   let movBatman = new Movie("Batman 2", 1992, 93);
+  Object.assign(movBatman, social);
+  movBatman.share.bind(movBatman);
+  movBatman.like.bind(movBatman);
+
   let movStar = new Movie("Star Wars I", 1994, 103);
   let movGod = new Movie("Godfather 1", 1979, 120);
 
@@ -139,5 +151,6 @@ function initPage() {
   movGod.pause();
   movGod.resume();
 
-  terminator.showCast();
+  movBatman.share("Mike");
+  movBatman.like("John");
 }
