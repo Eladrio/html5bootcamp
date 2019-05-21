@@ -6,6 +6,13 @@ function initPage() {
       this.events = {};
     }
 
+    /**
+     * The on() method receives an eventName and a callback and stores inside the events
+     * object an array with all the callbacks listening to the event with "eventName" name.
+     *
+     * @param {String} eventName
+     * @param {Object} callback
+     */
     on(eventName, callback) {
       if (!this.events[eventName]) {
         this.events[eventName] = [];
@@ -13,6 +20,12 @@ function initPage() {
       this.events[eventName].push(callback);
     }
 
+    /**
+     * The emit() method receives an event name and notifyes all callbacks related to that
+     * eventName.
+     *
+     * @param {String} eventName
+     */
     emit(eventName) {
       const eventArr = this.events[eventName];
       if (eventArr) {
@@ -27,6 +40,13 @@ function initPage() {
       }
     }
 
+    /**
+     * The off() method receives an event name and a callback and deletes that callback
+     * from the corresponding eventName's array.
+     *
+     * @param {String} eventName
+     * @param {Object} callback
+     */
     off(eventName, callback) {
       if (this.events[eventName]) {
         this.events[eventName] = this.events[eventName].filter((eventCallback) => {
@@ -45,22 +65,40 @@ function initPage() {
       this.cast = [];
     }
 
+    /**
+     * The play() method emits a play event using the inherited emit() method
+     * from the EventEmitter class.
+     */
     play() {
       console.log("Playing " + this.title + " movie");
       this.emit("play");
     }
 
+    /**
+     * The pause() method emits a pause event using the inherited emit() method
+     * from the EventEmitter class.
+     */
     pause() {
       console.log(this.title + " Movie is paused");
       this.emit("pause");
     }
 
+      /**
+     * The resume() method emits a resumed event using the inherited emit() method
+     * from the EventEmitter class.
+     */
     resume() {
       console.log("Resumed " + this.title + " Movie playing");
       this.emit("resumed");
     }
 
+    /**
+     *The addCast() method adds the cast received to the cast arrays of the Movie.
+     *
+     * @param {Object} cast
+     */
     addCast(cast) {
+
       this.cast = this.cast.concat(cast);
     }
 
@@ -80,6 +118,11 @@ function initPage() {
     constructor() {
     }
 
+    /**
+     * The log() method is the method that gets called in the emit() method of the EventEmitter
+     * class. And receives the info that the EventEmitter emitted.
+     * @param {*} info
+     */
     log(info) {
       console.log("The event " + info + " has been emitted");
     }
@@ -95,7 +138,11 @@ function initPage() {
   }
 
   let movBatman = new Movie("Batman 2", 1992, 93);
+
+  // The assign is used to copy all the enumerable properties from social into movBatman
   Object.assign(movBatman, social);
+
+  // The bind is used to bind the reference of "this" to movBatman when using share and like
   movBatman.share.bind(movBatman);
   movBatman.like.bind(movBatman);
 
