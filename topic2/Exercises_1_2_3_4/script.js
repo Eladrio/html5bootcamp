@@ -115,7 +115,10 @@ function initPage() {
   }
 
   class Logger {
-    constructor() {
+    constructor(eventName, objectToListen) {
+      this.listener = objectToListen.addEventListener(eventName, function() {
+        this.log(info);
+      })
     }
 
     /**
@@ -159,6 +162,8 @@ function initPage() {
   terminator.addCast(arnold);
   terminator.addCast(actors);
 
+  terminator.showCast();
+
   function playListener() {
     console.log("The playListener listened that Batman's movie is playing");
   }
@@ -173,17 +178,13 @@ function initPage() {
 
   movBatman.on("play", playListener);
 
-  let batPlayListener =  new Logger();
+  let batPlayListener =  new Logger("play",movBatman);
 
-  movBatman.on("play",batPlayListener);
+  //movBatman.on("play",batPlayListener);
 
-  let batPauseListener =  new Logger();
+  ////let batResumedListener =  new Logger();
 
-  movBatman.on("pause",batPauseListener);
-
-  let batResumedListener =  new Logger();
-
-  movBatman.on("resumed",batResumedListener);
+  //movBatman.on("resumed",batResumedListener);
 
 
   movBatman.play();
