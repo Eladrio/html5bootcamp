@@ -1,3 +1,11 @@
 fieldset {
   margin: 10px;
 }
+
+.dropzone {
+  border: 2px solid black;
+}
+
+.dragover {
+  background-color: rgba(0, 0, 255, 0.3);
+}
