@@ -3,13 +3,12 @@ import React, {Component} from 'react';
 class Movie extends Component {
   constructor(props) {
     super();
-    console.log(props);
     this.state = {
-      title: props.title,
-      director: props.director,
-      genre: props.genre,
-      year: props.year,
-      duration: props.duration,
+      title: props.data.title,
+      director: props.data.director,
+      genre: props.data.genre,
+      year: props.data.year,
+      duration: props.data.duration,
     }
   }
 

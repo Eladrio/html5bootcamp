@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import FormComponent from "./FormComponent";
-import Movie from './Movie';
 
 class FormContainer extends Component {
   constructor(props) {
@@ -24,9 +23,7 @@ class FormContainer extends Component {
   }
 
   handleSubmit() {
-    console.log(this.state);
-    let newMovie = new Movie(this.state);
-    this.props.handleSubmit(newMovie);
+    this.props.handleSubmit(this.state);
   }
 
   render() {

@@ -1,13 +1,37 @@
 import React from 'react';
+import Movie from './Movie'
+import FormContainer from './FormContainer';
 
 function MoviesList(props) {
-    const movies = props.data.map((movie, i) => {
-      return(
-        <div key={i} className="div-movie-item">
-        {movie.render()}
+
+  function handleDelete(event) {
+    const id = event.target.value;
+    props.handleDelete(id);
+  }
+
+  function handleSave(input) {
+    props.handleSave(input);
+  }
+
+  function handleEdit(event) {
+    const id = event.target.value;
+    props.handleEdit(id);
+  }
+
+  let movies = props.data.idS.map(id => {
+    return(
+      props.editingId == id ?
+      <div>
+        <FormContainer handleSubmit={handleSave}/>
       </div>
-      )
-    })
+      :
+      <div key={id} className="div-movie-item">
+      <Movie data={props.data.movies[id]} />
+      <button type="button" value={id} onClick={handleEdit}>Edit</button>
+      <button type="button" value={id} onClick={handleDelete}>Delete</button>
+    </div>
+    );
+  });
     return(
       <div className="movies-container">
         {movies}
