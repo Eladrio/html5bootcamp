@@ -10,16 +10,15 @@ class FormContainer extends Component {
       genre: "",
       year: "",
       duration: "",
+      isFavorite: false
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
-    const {name,value} = event.target
-    this.setState({
-      [name]: value
-    });
+    const {name, value, type, checked} = event.target
+    type === "checkbox" ? this.setState({ [name]: checked }) : this.setState({ [name]: value })
   }
 
   handleSubmit() {

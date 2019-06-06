@@ -20,11 +20,8 @@ class App extends Component {
   handleDelete(id) {
     this.setState((prevState) => {
       let newMoviesId = prevState.moviesId.filter((item) => {
-        console.log(typeof item);
-        console.log(typeof id);
-        return item != id
+        return item !== id
       });
-      console.log(newMoviesId);
       let copyMovies = {...prevState.movies};
       delete copyMovies[id];
       let newState = {
@@ -36,7 +33,6 @@ class App extends Component {
   }
 
   handleSave(input) {
-    console.log(input);
     this.setState(prevState => {
       let movs = {...prevState.movies};
       movs[prevState.editingId] = input;

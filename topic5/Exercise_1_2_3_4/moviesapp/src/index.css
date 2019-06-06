@@ -58,3 +58,7 @@ body {
   margin: 10px;
   display: block;
 }
+
+.form-new-movie input[type='checkbox'] {
+  display: inline;
+}

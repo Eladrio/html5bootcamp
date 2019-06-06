@@ -15,6 +15,7 @@ function FormComponent(props) {
           name="title"
           placeholder="Title"
           onChange={props.handleChange}
+          required
       />
       <input
           type="text"
@@ -22,6 +23,7 @@ function FormComponent(props) {
           name="director"
           placeholder="Director"
           onChange={props.handleChange}
+          required
       />
       <input
           type="text"
@@ -29,6 +31,7 @@ function FormComponent(props) {
           name="genre"
           placeholder="Genre"
           onChange={props.handleChange}
+          required
       />
       <input
           type="number"
@@ -37,6 +40,7 @@ function FormComponent(props) {
           placeholder="Duration"
           min="1"
           onChange={props.handleChange}
+          required
       />
       <input
           type="number"
@@ -45,7 +49,15 @@ function FormComponent(props) {
           placeholder="Year"
           min="1"
           onChange={props.handleChange}
+          required
       />
+      <input
+        type="checkbox"
+        checked={props.data.isFavorite}
+        name="isFavorite"
+        onChange={props.handleChange}
+      />Check if is one your favorite movies
+
       <button type="submit">Submit</button>
   </form>
   );
