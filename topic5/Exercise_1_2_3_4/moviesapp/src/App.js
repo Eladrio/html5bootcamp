@@ -9,7 +9,8 @@ class App extends Component {
     this.state = {
       movies : {},
       moviesId : [],
-      editingId : -1
+      editingId : -1,
+      addingId: 0
     }
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
@@ -77,12 +78,13 @@ class App extends Component {
    */
   handleFormSubmit(newInput) {
     this.setState(prevState => {
-      let newId = prevState.moviesId.length;
+      let newId = prevState.addingId + 1;
       let movs = {...prevState.movies};
       movs[newId] = newInput;
       let newState = {
         movies: movs,
-        moviesId: [...prevState.moviesId, newId]
+        moviesId: [...prevState.moviesId, newId],
+        addingId: newId
       }
       return newState;
     })

@@ -42,9 +42,7 @@ function MoviesList(props) {
 /*    If the id of the editing movie is the same as this idS's id, shows the editing form
       if not shows the Movie info. */
       props.editingId === id ?
-        <div>
           <FormContainer handleSubmit={handleSave}/>
-        </div>
         :
           // displays the movie only if is a favorite one.
           props.data.movies[id].isFavorite ?
