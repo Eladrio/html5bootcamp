@@ -3,19 +3,21 @@ import { ADD_MOVIE, DELETE_MOVIE, EDIT_MOVIE, HANDLE_EDIT_MOVIE } from "../const
 const initialState = {
   movies : {},
   moviesId : [],
-  editingId : -1
+  editingId : -1,
+  addingId: 0
 };
 
 function appReducer(state = initialState, action) {
 
   if (action.type === ADD_MOVIE) {
-    let newId = state.moviesId.length;
+    let newId = state.addingId + 1;
     let movs = {...state.movies};
     movs[newId] = action.payload;
     let newState = {
       ...state,
       movies: movs,
-      moviesId: [...state.moviesId, newId]
+      moviesId: [...state.moviesId, newId],
+      addingId: newId
     }
     return newState;
   }
