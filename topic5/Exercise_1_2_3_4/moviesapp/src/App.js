@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Form from './FormContainer';
+import FormContainer from './FormContainer';
 import MoviesList from './MoviesList';
 import './App.css';
 
@@ -17,6 +17,11 @@ class App extends Component {
     this.handleDelete = this.handleDelete.bind(this);
   }
 
+  /**
+   * handleDelete it gets passed to the MoviesList component as a callback prop, it manages the deletion of a Movie
+   *
+   * @param {Number} id
+   */
   handleDelete(id) {
     this.setState((prevState) => {
       let newMoviesId = prevState.moviesId.filter((item) => {
@@ -32,6 +37,26 @@ class App extends Component {
     });
   }
 
+  /**
+   * handleEdit() it gets passed to the MoviesList component as a callback prop, it sets the editingId in this component's
+   * state to the id of the Movie that will get modified.
+   *
+   * @param {Number} id
+   */
+  handleEdit(id) {
+    this.setState(() => {
+      return {
+        editingId: id
+      }
+    })
+  }
+
+  /**
+   * handleSave() it gets passed to MoviesList as a callback prop and sets the new input to the Movie that is been
+   * edited.
+   *
+   * @param {Object} input
+   */
   handleSave(input) {
     this.setState(prevState => {
       let movs = {...prevState.movies};
@@ -44,14 +69,12 @@ class App extends Component {
     });
   }
 
-  handleEdit(id) {
-    this.setState(() => {
-      return {
-        editingId: id
-      }
-    })
-  }
-
+  /**
+   * handleFormSubmit() it gets passed to the FormContainer component as a callback prop, it manages the addition of a
+   * new Movie.
+   *
+   * @param {Object} newInput
+   */
   handleFormSubmit(newInput) {
     this.setState(prevState => {
       let newId = prevState.moviesId.length;
@@ -64,11 +87,11 @@ class App extends Component {
       return newState;
     })
   }
-
+  // Renders the Form to add new Movies and displays the list of favorite movies.
   render(){
     return(
       <div className="content-container">
-        <Form handleSubmit= {this.handleFormSubmit} />
+        <FormContainer handleSubmit= {this.handleFormSubmit} />
         {this.state.movies ? <MoviesList data={{movies:this.state.movies, idS:this.state.moviesId}} editingId={this.state.editingId} handleEdit={this.handleEdit} handleDelete={this.handleDelete} handleSave={this.handleSave} /> : null}
       </div>
     );

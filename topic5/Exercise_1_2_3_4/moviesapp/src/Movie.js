@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 class Movie extends Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       title: props.data.title,
       director: props.data.director,

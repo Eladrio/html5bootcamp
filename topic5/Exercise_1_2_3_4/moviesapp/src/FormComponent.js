@@ -2,6 +2,11 @@ import React from "react";
 
 function FormComponent(props) {
 
+  /**
+   * handleSubmit() the function that manages the submition of the form and calls the callback prop received.
+   *
+   * @param {Event} event
+   */
   function handleSubmit(event) {
     event.preventDefault();
     props.handleSubmit();
